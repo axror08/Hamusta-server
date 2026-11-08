@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hamusta: usta va texnika ta’miri</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23FFC91F'/%3E%3Cpath d='M21 40 50 20l29 20v10L50 31 21 50z' fill='%23062860'/%3E%3Cpath d='M33 42l9-5v14h16V37l9 5v34h-9V60H42v16h-9z' fill='%23062860'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFC91F;--sheet:#F6F7FB;--card:#fff;--text:#0B1B3A;--muted:#5F6B86;--line:#E3E8F3;--navy:#062860;--yellow:#FFC91F;--ok:#12A15F;--shadow:0 6px 18px rgba(6,40,96,.10);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--sheet:#0A1530;--card:#13224A;--text:#F1F4FF;--muted:#A3AFCF;--line:#26396B;--ok:#4CD08C;--shadow:none}}
+:root[data-theme="dark"]{--sheet:#0A1530;--card:#13224A;--text:#F1F4FF;--muted:#A3AFCF;--line:#26396B;--ok:#4CD08C;--shadow:none}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:Nunito,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-weight:600}
+button{-webkit-tap-highlight-color:transparent;transition:transform .12s}
+button:active{transform:scale(.97)}
+#app{max-width:460px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:var(--sheet)}
+header{background:var(--yellow);color:#0B1B3A;padding:16px 18px 30px;display:flex;align-items:center;gap:12px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+header b{font-size:22px;font-weight:900;display:block;line-height:1.1}
+header small{display:block;font-size:13px;font-weight:700;opacity:.8;margin-top:2px}
+.back{width:40px;height:40px;border-radius:50%;border:0;background:#fff;color:#0B1B3A;font-size:20px;font-weight:900;cursor:pointer;flex:none;box-shadow:0 3px 8px rgba(6,40,96,.15)}
+main{flex:1;margin-top:-16px;background:var(--sheet);border-radius:26px 26px 0 0;padding:20px 16px 110px;position:relative;z-index:6}
+h1{font-size:26px;line-height:1.15;margin:0 0 16px;font-weight:900}
+h2{font-size:19px;margin:24px 0 12px;font-weight:900}
+.hero{background:var(--navy);color:#fff;border-radius:22px;padding:18px;margin-bottom:20px;position:relative;overflow:hidden}
+.hero b{font-size:21px;font-weight:900;line-height:1.2;display:block;max-width:75%}
+.hero p{margin:8px 0 0;font-size:14px;opacity:.85;max-width:75%}
+.hero i{position:absolute;right:14px;bottom:6px;font-size:64px;font-style:normal;transform:rotate(-12deg)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cat{background:var(--t);border:0;border-radius:22px;padding:16px 14px;min-height:132px;text-align:left;cursor:pointer;color:#0B1B3A;font:inherit;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+.cat span{font-size:46px;position:absolute;right:8px;top:6px;line-height:1}
+.cat b{font-size:16px;font-weight:900;line-height:1.15;max-width:80%}
+.cat small{display:block;margin-top:3px;font-size:12px;font-weight:700;opacity:.7}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .cat{background:color-mix(in srgb,var(--t) 25%,var(--card));color:var(--text)}}
+:root[data-theme="dark"] .cat{background:color-mix(in srgb,var(--t) 25%,var(--card));color:var(--text)}
+.row{background:var(--card);border:0;border-radius:20px;padding:16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;cursor:pointer;width:100%;color:var(--text);font:inherit;text-align:left;box-shadow:var(--shadow)}
+.row b{font-weight:900;font-size:16px}
+.price{font-weight:900;white-space:nowrap;background:var(--yellow);color:#0B1B3A;border-radius:99px;padding:6px 12px;font-size:14px}
+.sum .price{background:none;padding:0;font-size:16px}
+.muted{color:var(--muted);font-size:13px;font-weight:700}
+.badge{display:inline-block;background:rgba(18,161,95,.15);color:var(--ok);border-radius:99px;padding:3px 10px;font-size:12px;font-weight:800}
+.trust{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.trust div{background:var(--card);border-radius:18px;padding:14px;font-size:14px;font-weight:800;box-shadow:var(--shadow);line-height:1.25}
+.trust em{display:block;font-style:normal;font-size:24px;margin-bottom:6px}
+.btn{display:block;width:100%;border:0;border-radius:20px;background:var(--yellow);color:#0B1B3A;font:inherit;font-weight:900;font-size:17px;padding:17px;cursor:pointer;margin-top:16px;box-shadow:0 6px 0 rgba(6,40,96,.18)}
+.btn:active{transform:translateY(3px);box-shadow:0 3px 0 rgba(6,40,96,.18)}
+.btn:disabled{opacity:.6;cursor:wait}
+.btn.alt{background:var(--navy);color:#fff;box-shadow:none}
+label{display:block;font-weight:900;font-size:15px;margin:16px 0 8px}
+input,textarea{width:100%;border:2px solid transparent;background:var(--card);color:var(--text);border-radius:16px;padding:14px;font:inherit;box-shadow:var(--shadow)}
+input:focus,textarea:focus{border-color:var(--yellow);outline:0}
+textarea{min-height:90px;resize:vertical}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:2px solid var(--line);background:var(--card);color:var(--text);border-radius:99px;padding:10px 16px;font:inherit;font-weight:800;font-size:14px;cursor:pointer}
+.chip.on{background:var(--yellow);border-color:var(--yellow);color:#0B1B3A}
+.ava{width:50px;height:50px;border-radius:50%;background:var(--yellow);color:#0B1B3A;display:grid;place-items:center;font-weight:900;font-size:20px;flex:none}
+.usta{display:flex;gap:12px;align-items:center}.usta>div:nth-child(2){flex:1}
+.sum{background:var(--card);border-radius:20px;padding:16px;box-shadow:var(--shadow)}
+.sum p{margin:0 0 10px;display:flex;justify-content:space-between;gap:10px}
+.sum p:last-child{margin-bottom:0}
+.steps{list-style:none;margin:14px 0;padding:0}
+.steps li{display:flex;gap:14px;align-items:center;padding:12px 0;color:var(--muted);font-weight:800}
+.steps i{width:30px;height:30px;border-radius:50%;border:3px solid var(--line);display:grid;place-items:center;font-style:normal;font-size:14px;flex:none;background:var(--card)}
+.steps li.done{color:var(--text)}.steps li.done i{background:var(--ok);border-color:var(--ok);color:#fff}
+.steps li.now{color:var(--text)}.steps li.now i{border-color:var(--yellow);background:var(--yellow);color:#0B1B3A}
+.stars button{background:none;border:0;font-size:38px;cursor:pointer;color:var(--line);padding:0 3px}.stars button.on{color:var(--yellow)}
+nav{position:fixed;bottom:calc(10px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);width:calc(100% - 28px);max-width:432px;background:var(--navy);border-radius:26px;display:flex;padding:6px;z-index:9;box-shadow:0 10px 24px rgba(6,40,96,.35)}
+nav button{flex:1;background:none;border:0;border-radius:20px;padding:9px 0 8px;font:inherit;font-weight:800;font-size:12px;color:rgba(255,255,255,.7);cursor:pointer}
+nav button.on{background:var(--yellow);color:#0B1B3A}
+nav button span{display:block;font-size:20px}
+.demo{background:rgba(255,201,31,.25);border-radius:14px;padding:10px 14px;font-size:12px;font-weight:800;margin-bottom:16px}
+.empty{text-align:center;padding:30px 10px}.empty span{font-size:56px;display:block;margin-bottom:8px}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){button{transition:none}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const LOGO='<svg width="44" height="44" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="#062860"/><path d="M21 38 50 18l29 20v10L50 29 21 48z" fill="#FFC91F"/><path d="M33 40l9-5v14h16V35l9 5v34h-9V58H42v16h-9z" fill="#FFC91F"/></svg>';
+const CATS=[
+{id:'san',n:'Santexnik',i:'🚰',t:'#CFE8FF',items:[['Kran almashtirish',80000],['Quvur tirqishini ta’mirlash',120000],['Bo‘g‘ilgan quvurni ochish',100000],['Unitaz o‘rnatish',200000]]},
+{id:'el',n:'Elektrik',i:'💡',t:'#FFE9A0',items:[['Rozetka o‘rnatish',50000],['Lyustra osish',90000],['Avtomat almashtirish',70000],['Simni tekshirish',120000]]},
+{id:'mz',n:'Muzlatgich',i:'🧊',t:'#C9F3E0',items:[['Diagnostika',60000],['Freon quyish',250000],['Kompressor almashtirish',600000]]},
+{id:'kym',n:'Kir yuvish mashinasi',i:'🧺',t:'#E4D8FF',items:[['Diagnostika',60000],['Nasosni almashtirish',180000],['Taglikni almashtirish',160000]]},
+{id:'kon',n:'Konditsioner',i:'❄️',t:'#FFD3D3',items:[['Tozalash',150000],['O‘rnatish',350000],['Gaz to‘ldirish',250000]]},
+{id:'usta',n:'Boshqa usta',i:'🛠️',t:'#FFD9B8',items:[['Mebel yig‘ish',120000],['Eshik va qulf ta’miri',100000],['Deraza zichlash',90000]]}];
+const KASB={san:'santexnik',el:'elektrik',mz:'muzlatgich',kym:'kir yuvish mashinasi',kon:'konditsioner',usta:'boshqa'};
+let UST=null;
+const STEPS=['Buyurtma yuborildi','Usta qabul qildi','Usta yo‘lda','Ish tugadi'];
+const S={tab:'home',view:'home',cat:null,item:null,time:'Hozir',note:'',addr:'',usta:null,orders:[],cur:null};
+const $=document.getElementById('app');
+const fmt=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' so‘m';
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function go(v,extra){Object.assign(S,extra||{});S.view=v;render();window.scrollTo(0,0)}
+function tab(t){S.tab=t;S.view=t==='home'?'home':'orders';if(t!=='home')loadOrders();render();window.scrollTo(0,0)}
+function pickCat(id){S.cat=CATS.find(c=>c.id===id);go('svc')}
+function pickItem(i){S.item=S.cat.items[i];go('form')}
+function setTime(t){S.time=t;render()}
+function pickUsta(i){const u=UST[i];S.usta={n:u.ism,k:u.kasb,i:u.i};go('confirm')}
+async function loadUstalar(){UST=null;S.err=false;go('ustalar');try{const r=await fetch(API+'/ustalar');if(!r.ok)throw 0;UST=await r.json()}catch(e){S.err=true}render()}
+const API='https://hamusta-server.onrender.com';
+const TG=window.Telegram&&Telegram.WebApp;
+const say=m=>TG&&TG.showAlert?TG.showAlert(m):alert(m);
+let OSIG='';
+async function loadOrders(){if(!TG||!TG.initData)return;try{const r=await fetch(API+'/myorders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({initData:TG.initData})});if(!r.ok)return;const d=await r.json();const sig=JSON.stringify(d.orders);if(sig===OSIG)return;OSIG=sig;S.orders=d.orders;if(S.cur)S.cur=S.orders.find(x=>x.id===S.cur.id)||S.cur;if(S.view==='orders'||S.view==='track')render()}catch(e){}}
+setInterval(()=>{if(S.view==='orders'||S.view==='track')loadOrders()},8000);
+async function order(){
+if(S.sending)return;
+if(!TG||!TG.initData){say('Buyurtma berish uchun ilovani Telegram ichida oching.');return}
+S.sending=true;render();
+const addr=S.addr||'Manzil kiritilmagan';
+try{
+const r=await fetch(API+'/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({initData:TG.initData,order:{cat:S.cat.n,item:S.item[0],price:S.item[1],usta:S.usta.n,ustaIdx:S.usta.i,time:S.time,addr:addr,note:S.note}})});
+if(!r.ok)throw new Error('server');const d=await r.json();
+S.orders=[d.order].concat(S.orders.filter(x=>x.id!==d.order.id));S.cur=d.order;S.tab='orders';S.sending=false;go('track');
+}catch(e){S.sending=false;render();say('Buyurtma yuborilmadi. Internetni tekshirib, qayta urinib ko‘ring.')}
+}
+function next(){if(S.cur.step<3)S.cur.step++;render()}
+function rate(n){S.cur.rate=n;render()}
+function pay(){S.cur.paid=true;render()}
+function openOrder(i){S.cur=S.orders[i];go('track')}
+function back(){const m={svc:'home',form:'svc',ustalar:'form',confirm:'ustalar',track:'orders'};go(m[S.view]||'home')}
+function header(t,sub,showBack){return `<header>${showBack?'<button class="back" onclick="back()" aria-label="Orqaga">←</button>':LOGO}<div><b>${t}</b><small>${sub}</small></div></header>`}
+function nav(){return `<nav><button class="${S.tab==='home'?'on':''}" onclick="tab('home')"><span>🏠</span>Xizmatlar</button><button class="${S.tab==='orders'?'on':''}" onclick="tab('orders')"><span>📋</span>Buyurtmalarim${S.orders.length?' ('+S.orders.length+')':''}</button></nav>`}
+function render(){let h='',v=S.view;
+if(v==='home'){h=header('Hamusta','Hamma usta bir joyda')+`<main><div class="hero"><b>Usta 10 daqiqada eshigingizda</b><p>Narx oldindan aniq, ish uchun kafolat.</p><i>🛠️</i></div><h1>Qanday usta kerak?</h1><div class="grid">${CATS.map(c=>`<button class="cat" style="--t:${c.t}" onclick="pickCat('${c.id}')"><span>${c.i}</span><b>${c.n}</b><small>${c.items.length} xizmat</small></button>`).join('')}</div><h2>Nega Hamusta</h2><div class="trust"><div><em>✅</em>Tekshirilgan ustalar</div><div><em>💰</em>Narx oldindan aniq</div><div><em>🛡</em>Ish uchun kafolat</div><div><em>⭐</em>Ish tugagach baho</div></div></main>`}
+if(v==='svc'){h=header(S.cat.n,'Aniq narxlar',1)+`<main><h1>Xizmatni tanlang</h1>${S.cat.items.map((it,i)=>`<button class="row" onclick="pickItem(${i})"><div><b>${it[0]}</b><div class="muted">Kafolat: 14 kun</div></div><div class="price">${fmt(it[1])}</div></button>`).join('')}</main>`}
+if(v==='form'){h=header('Buyurtma','Qisqa ma’lumot kiriting',1)+`<main><div class="sum"><p><b>${esc(S.item[0])}</b><span class="price">${fmt(S.item[1])}</span></p><p class="muted">${S.cat.n}</p></div><label for="a">Manzil</label><input id="a" value="${esc(S.addr)}" placeholder="Masalan: Chilonzor, 9-kvartal, 12-uy" oninput="S.addr=this.value"><label for="n">Muammoni yozing (ixtiyoriy)</label><textarea id="n" placeholder="Nima buzilgan?" oninput="S.note=this.value">${esc(S.note)}</textarea><label>Qachon kerak?</label><div class="chips">${['Hozir','Bugun kechqurun','Ertaga'].map(t=>`<button class="chip ${S.time===t?'on':''}" onclick="setTime('${t}')">${t}</button>`).join('')}</div><button class="btn" onclick="loadUstalar()">Ustalarni ko‘rish</button></main>`}
+if(v==='ustalar'){const k=KASB[S.cat.id];const L=UST?UST.map((u,i)=>[u,i]).filter(x=>x[0].kasb===k):[];h=header('Ustalar','Tekshirilgan ustalar',1)+`<main>${S.err?'<div class="empty"><span>📡</span><p class="muted">Ustalar yuklanmadi. Internetni tekshirib, qayta urinib ko‘ring.</p></div><button class="btn" onclick="loadUstalar()">Qayta urinish</button>':!UST?'<div class="empty"><span>⏳</span><p class="muted">Ustalar yuklanmoqda…</p></div>':L.length?L.map(([u,i])=>`<button class="row" onclick="pickUsta(${i})"><div class="usta"><div class="ava">${esc(u.ism[0])}</div><div><b>${esc(u.ism)}</b> <span class="badge">Tekshirilgan</span><div class="muted">${esc(u.kasb)}</div></div></div></button>`).join(''):'<div class="empty"><span>🔍</span><p class="muted">Hozircha bu yo‘nalishda usta yo‘q. Tez orada qo‘shiladi.</p></div>'}</main>`}
+if(v==='confirm'){h=header('Tasdiqlash','Buyurtmani tekshiring',1)+`<main><div class="sum"><p><span>Xizmat</span><b>${esc(S.item[0])}</b></p><p><span>Usta</span><b>${S.usta.n}</b></p><p><span>Vaqt</span><b>${S.time}</b></p><p><span>Manzil</span><b>${esc(S.addr||'Kiritilmagan')}</b></p><p><span>Jami narx</span><b class="price">${fmt(S.item[1])}</b></p></div><p class="muted">Ish tugagach, mijoz tekshirib to‘laydi. Ish sifatsiz bo‘lsa, pul qaytariladi.</p><button class="btn" onclick="order()" ${S.sending?'disabled':''}>${S.sending?'Yuborilmoqda…':'Buyurtma berish'}</button></main>`}
+if(v==='orders'){h=header('Buyurtmalarim','Hozirgi va oldingi buyurtmalar')+`<main>${S.orders.length?S.orders.map((o,i)=>`<button class="row" onclick="openOrder(${i})"><div><b>${esc(o.item)}</b><div class="muted">${esc(o.usta)} · ${o.rej?'Rad etildi':STEPS[o.step]}</div></div><div class="price">${fmt(o.price)}</div></button>`).join(''):'<div class="empty"><span>📋</span><p class="muted">Hali buyurtma yo‘q. Xizmatlar bo‘limidan birinchi buyurtmani bering.</p></div><button class="btn" onclick="tab(\'home\')">Xizmat tanlash</button>'}</main>`}
+if(v==='track'){const o=S.cur;h=header('Buyurtma №'+o.id,esc(o.item),1)+`<main><div class="sum"><div class="usta"><div class="ava">${esc(o.usta[0])}</div><div><b>${esc(o.usta)}</b><div class="muted">${esc(o.kasb)} · ${esc(o.addr)}</div></div></div></div>${o.rej?'<div class="sum" style="margin-top:14px"><b>❌ Usta hozir band</b><p class="muted">Boshqa usta tanlab, qayta buyurtma bering.</p></div>':`<ul class="steps">${STEPS.map((s,i)=>`<li class="${i<o.step||(i===3&&o.step===3)?'done':i===o.step?'now':''}"><i>${i<=o.step&&(i<o.step||o.step===3)?'✓':i+1}</i>${s}</li>`).join('')}</ul>`}<div class="sum"><p><span>Narx</span><b class="price">${fmt(o.price)}</b></p>${o.step===3?`<p><span>To‘lov</span><b>${o.pay?'✅ '+o.pay:'Telegram chatida usulni tanlang'}</b></p>${o.rate?`<p><span>Baho</span><b>${'⭐'.repeat(o.rate)}</b></p>`:''}`:''}</div><p class="muted">Holat o‘zgarganda sizga bot orqali ham xabar yuboramiz.</p></main>`}
+$.innerHTML=h+nav()}
+if(TG){TG.ready();TG.expand();try{TG.setHeaderColor('#FFC91F')}catch(e){}}
+render();
+loadOrders();
+</script>
+</body>
+</html>
